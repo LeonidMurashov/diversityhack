@@ -2,78 +2,59 @@
 #include <fstream>
 #include <vector>
 
-using namespace std;
+using std::vector;
+using std::ifstream;
+using std::cin;
+using std::cout;
+using std::endl;
 
+#include "data_types.h"
 
-struct Courier {
-    int courier_id;
-    int location_x, location_y;
-};
+namespace dostavista {
+    Data ReadData() {
+        ifstream fin;
+        fin.open("../data.txt");
 
-struct Order {
-    int order_id;
-    int pickup_point_id;
-    int pickup_location_x, pickup_location_y;
-    int pickup_from, pickup_to;
-    int dropoff_point_id;
-    int dropoff_location_x, dropoff_location_y;
-    int dropoff_from, dropoff_to;
-    int payment;
-};
+        int n = 0;
+        vector<Courier_data> couriers;
+        vector<Order> orders;
+        vector<Storage> storages;
 
-struct Storage {
-    int point_id;
-    int location_x, location_y;
-};
+        // Couriers
+        fin >> n;
+        for (int i = 0; i < n; ++i) {
+            Courier_data courier;
+            fin >> courier.courier_id >> courier.location_x >> courier.location_y;
+            couriers.push_back(courier);
+        }
 
-struct Data{
-	vector<Courier> couriers;
-	vector<Order> orders;
-	vector<Storage> storages;
-};
+        // Storages
+        fin >> n;
+        for (int i = 0; i < n; ++i) {
+            Storage storage;
+            fin >> storage.location_x >> storage.location_y >> storage.point_id;
+            storages.push_back(storage);
+        }
 
-Data ReadData(){
-	ifstream fin;
-	fin.open("data.txt");
+        // Orders
+        fin >> n;
+        for (int i = 0; i < n; ++i) {
+            Order order;
+            fin >> order.dropoff_from >> order.dropoff_location_x >> order.dropoff_location_y >> order.dropoff_point_id
+                >> order.dropoff_to >> order.order_id >> order.payment >> order.pickup_from >> order.pickup_location_x
+                >> order.pickup_location_y >> order.pickup_point_id >> order.pickup_to;
+            orders.push_back(order);
+        }
 
-	int n = 0;
-	vector<Courier> couriers;	
-	vector<Order> orders;	
-	vector<Storage> storages;	
-	
-	// Couriers
-	fin >> n;
-	for (int i = 0; i < n; ++i){
-		Courier courier;
-		fin >> courier.courier_id >> courier.location_x >> courier.location_y;
-		couriers.push_back(courier);
-	}
+        fin.close();
 
-	// Storages
-	fin >> n;
-	for (int i = 0; i < n; ++i){
-		Storage storage;
-		fin >> storage.location_x >> storage.location_y >> storage.point_id;
-		storages.push_back(storage);
-	}
-
-	// Orders
-	fin >> n;
-	for (int i = 0; i < n; ++i){
-		Order order;
-		fin >> order.dropoff_from >> order.dropoff_location_x >> order.dropoff_location_y >> order.dropoff_point_id >> order.dropoff_to >> order.order_id >> order.payment >> order.pickup_from >> order.pickup_location_x >> order.pickup_location_y >> order.pickup_point_id >> order.pickup_to;
-		orders.push_back(order);
-	}
-	
-	fin.close();
-
-	return {couriers, orders, storages};
+        return {orders, couriers, storages};
+    }
 }
+int main() {
 
-int main(){
+    dostavista::Data data = dostavista::ReadData();
+    cout << data.orders.size() << endl;
 
-	Data data = ReadData();
-	cout << data.orders.size() << endl;
-
-	return 0;
+    return 0;
 }
