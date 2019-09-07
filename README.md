@@ -1,0 +1,2 @@
+# diversityhack
+Solution for Dostavista
