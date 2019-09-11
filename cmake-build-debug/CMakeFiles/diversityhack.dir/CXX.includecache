@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/hack/diversityhack/parse.cpp
+iostream
+-
+fstream
+-
+vector
+-
+algorithm
+-
+assert.h
+-
+cmath
+-
+

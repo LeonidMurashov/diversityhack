@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.14)
-project(Dostavista)
+project(diversityhack)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Dostavista parse.cpp data_types.h MCT.cpp MCT.h)
+include_directories(.)
+
+add_executable(diversityhack
+        data_types.h
+        MCT.cpp
+        MCT.h
+        parse.cpp)

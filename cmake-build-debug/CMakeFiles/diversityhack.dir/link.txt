@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/diversityhack.dir/MCT.cpp.o CMakeFiles/diversityhack.dir/parse.cpp.o  -o diversityhack 
